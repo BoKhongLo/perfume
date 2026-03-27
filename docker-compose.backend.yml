@@ -1,0 +1,64 @@
+
+services:
+  mysql1:
+    image: mysql:8.4.2
+    container_name: mysql_review_product
+    environment:
+      MYSQL_ROOT_PASSWORD: super-secret-123@
+      MYSQL_DATABASE: review_product
+    ports:
+      - "3307:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+      - ./init-scripts:/docker-entrypoint-initdb.d 
+    networks:
+      - review_network
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+
+  nestjs:
+    build:
+      context: .
+      dockerfile: nest-app/DockerFile
+    container_name: nestjs_service
+    environment:
+      DATABASE_URL: mysql://root:super-secret-123@@mysql/review_product 
+    ports:
+      - '3434:3434'
+    networks:
+      - review_network
+    depends_on:
+      mysql1:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:3434/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+
+  fastapi:
+    build:
+      context: .
+      dockerfile: python-module/DockerFile
+    container_name: fastapi_service
+    ports:
+      - '8000:8000'
+    networks:
+      - review_network
+    depends_on:
+      - nestjs
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+
+volumes:
+  mysql_data:
+
+networks:
+  review_network:
+    driver: bridge

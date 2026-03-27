@@ -1,0 +1,446 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type ActionLog {
+  action: String!
+  created_at: DateTime!
+  details: String
+  entityId: Int
+  entityName: String
+  id: ID!
+  userId: UserType!
+}
+
+type Blog {
+  content: String
+  created_at: DateTime!
+  id: ID!
+  isDisplay: Boolean!
+  title: String!
+  typeBlog: String!
+  updated_at: DateTime!
+}
+
+input CreateBlogDto {
+  content: String
+  title: String!
+  typeBlog: String!
+}
+
+input CreateProductDto {
+  category: String
+  details: ProductDetailInp!
+  displayCost: Float!
+  name: String!
+  originCost: Float!
+  stockQuantity: Int
+}
+
+input CreateUserDto {
+  address: String
+  birthday: DateTime
+  email: String!
+  firstName: String!
+  gender: String
+  lastName: String!
+  password: String!
+  phoneNumber: String
+  role: [String!]!
+  username: String!
+}
+
+type CustomerInfo {
+  email: String!
+  firstName: String!
+  id: ID!
+  lastName: String!
+  phoneNumber: String!
+}
+
+input CustomerInfoInp {
+  email: String!
+  firstName: String!
+  lastName: String!
+  phoneNumber: String!
+}
+
+"""
+A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
+"""
+scalar DateTime
+
+input DeleteBlogDto {
+  blogId: Float!
+}
+
+input DeleteProductDto {
+  productId: Float!
+}
+
+type DeliveryInfo {
+  address: String!
+  city: String
+  district: String
+  id: ID!
+}
+
+input DeliveryInfoInp {
+  address: String!
+  city: String
+  district: String
+}
+
+type Favorite {
+  dataBrand: [FavoriteElementWeekType!]!
+  dataProduct: [FavoriteElementProductType!]!
+  dataSex: [FavoriteElementWeekType!]!
+}
+
+type FavoriteElementProductType {
+  brand: String!
+  displayCost: Float!
+  imgDisplay: String!
+  name: String!
+  totalProfit: Float!
+  totalQuantity: Float!
+}
+
+type FavoriteElementWeekType {
+  type: String!
+  value: Float!
+}
+
+input GetTempWarehouseDto {
+  productId: Float!
+  stockQuantity: Float!
+}
+
+type ImageDetail {
+  id: ID!
+  link: [String!]
+  productDetail: ProductDetail
+  url: String!
+}
+
+input ImageDetailInp {
+  link: [String!]
+  url: String
+}
+
+type Mutation {
+  CreateBlog(CreateBlog: CreateBlogDto!): Blog!
+  CreateListOrder(CreateOrder: [createOrderDto!]!): [Order!]!
+  CreateOrder(CreateOrder: createOrderDto!): Order!
+  CreateProduct(CreateProduct: CreateProductDto!): Product!
+  CreateProductByList(CreateProduct: [CreateProductDto!]!): [Product!]!
+  CreateUser(CreateUser: CreateUserDto!): UserType!
+  CreateUserByList(CreateUser: [CreateUserDto!]!): [UserType!]!
+  DeleteBlog(DeleteBlog: DeleteBlogDto!): ResponseType!
+  DeleteProduct(DeleteProduct: DeleteProductDto!): ResponseType!
+  DeleteUser(id: String!): ResponseType!
+  UpdateBlog(UpdateBlog: UpdateBlogDto!): Blog!
+  UpdateOrder(UpdateOrder: updateOrderDto!): Order!
+  UpdateProduct(UpdateProduct: UpdateProductDto!): Product!
+  UpdateUser(UpdateUser: UpdateUserDto!): UserType!
+  UpdateWareHouse(TempWarehouse: [UpdateWarehouseDto!]!): [Product!]!
+}
+
+type Order {
+  created_at: DateTime!
+  customerInfo: CustomerInfo!
+  deliveryInfo: DeliveryInfo!
+  id: ID!
+  isDisplay: Boolean!
+  isPaid: Boolean!
+  notes: String
+  orderProducts: [OrderProduct!]!
+  status: String!
+  totalAmount: Float!
+  updated_at: DateTime!
+}
+
+type OrderProduct {
+  discount: Float
+  id: ID!
+  order: Order!
+  orderId: ID!
+  product: Product!
+  productId: ID!
+  quantity: Float!
+  unitPrice: Float!
+}
+
+input OrderProductInp {
+  discount: Float
+  productId: ID!
+  quantity: Float!
+}
+
+type Product {
+  buyCount: Int
+  category: String
+  created_at: DateTime!
+  details: ProductDetail!
+  displayCost: Float!
+  id: ID!
+  isDisplay: Boolean!
+  name: String!
+  orderProducts: [OrderProduct!]!
+  originCost: Float!
+  rating: Float
+  stockQuantity: Int
+  updated_at: DateTime!
+}
+
+type ProductAnalytic {
+  dataBrand: [ProductAnalyticElementWeekType!]!
+  dataSex: [ProductAnalyticElementWeekType!]!
+}
+
+type ProductAnalyticElementWeekType {
+  type: String!
+  value: Float!
+}
+
+type ProductDetail {
+  brand: TagsDetail
+  concentration: TagsDetail
+  description: String
+  fragranceNotes: TagsDetail
+  id: ID!
+  imgDisplay: [ImageDetail!]
+  longevity: TagsDetail
+  sex: TagsDetail
+  sillage: TagsDetail
+  size: [TagsDetail!]
+  tutorial: String
+}
+
+input ProductDetailInp {
+  brand: TagsDetailInp
+  concentration: TagsDetailInp
+  description: String
+  fragranceNotes: TagsDetailInp
+  imgDisplay: [ImageDetailInp!]
+  longevity: TagsDetailInp
+  sex: TagsDetailInp
+  sillage: TagsDetailInp
+  size: [TagsDetailInp!]
+  tutorial: String
+}
+
+type Query {
+  AnalyticFavorite: Favorite!
+  AnalyticProduct: ProductAnalytic!
+  AnalyticRevenue: Revenue!
+  GetBlogById(blogId: Float!): Blog!
+  GetOrderById(orderId: Float!): Order!
+  GetProductById(productId: Float!): Product!
+  GetReportProduct(ReportProduct: SearchProductDto!): SearchProduct!
+  GetTagsProduct(GetTagsProduct: TagsProductDto!): [TagsDetail!]!
+  GetTempWareHouse(TempWarehouse: [GetTempWarehouseDto!]!): [TempWareHouse!]!
+  GetTopBrand: TopType!
+  GetUserById(id: String!): UserType!
+  SearchBlogWithOptions(SearchBlog: SearchBlogDto!): [Blog!]!
+  SearchOrderWithOption(SearchOrder: SearchOrderDto!): SearchOrder!
+  SearchProductWithOptions(SearchProduct: SearchProductDto!): SearchProduct!
+  SearchUserWithOption(SearchUser: SearchUserDto!): SearchUser!
+}
+
+type ResponseType {
+  message: String!
+}
+
+type Revenue {
+  dataAllTime: RevenueAllTimeType!
+  dataMonth: [RevenueElementMonthType!]!
+  dataWeek: [RevenueElementWeekType!]!
+}
+
+type RevenueAllTimeType {
+  totalOrder: Float!
+  totalProduct: Float!
+  totalProfit: Float!
+  totalRevenue: Float!
+}
+
+type RevenueElementMonthType {
+  Date: String!
+  productSold: Float
+  profit: Float
+  revenue: Float
+}
+
+type RevenueElementWeekType {
+  name: String!
+  xData: String!
+  yData: Float!
+}
+
+input SearchBlogDto {
+  blogId: Float
+  title: String
+  typeBlog: String
+}
+
+type SearchOrder {
+  data: [Order!]!
+  maxValue: Float!
+}
+
+input SearchOrderDto {
+  count: Float
+  email: String
+  firstName: String
+  index: Float
+  lastName: String
+  orderId: ID
+  phoneNumber: String
+  rangeMoney: [Float!]
+  sort: String
+}
+
+type SearchProduct {
+  data: [Product!]!
+  maxValue: Float!
+}
+
+input SearchProductDto {
+  brand: [TagsDetailInp!]
+  concentration: [TagsDetailInp!]
+  count: Float
+  fragranceNotes: [TagsDetailInp!]
+  hotSales: String
+  index: Float
+  name: String
+  rangeMoney: [Float!]
+  sex: [TagsDetailInp!]
+  size: [TagsDetailInp!]
+  sort: String
+}
+
+type SearchUser {
+  data: [UserType!]!
+  maxValue: Float!
+}
+
+input SearchUserDto {
+  address: String
+  birthday: DateTime
+  count: Float
+  email: String
+  firstName: String
+  gender: String
+  index: Float
+  lastName: String
+  phoneNumber: String
+  role: [String!]
+  sort: String
+  username: String
+}
+
+type TagsDetail {
+  id: ID!
+  type: String!
+  value: String!
+}
+
+input TagsDetailInp {
+  type: String
+  value: String
+}
+
+input TagsProductDto {
+  tags: String
+}
+
+type TempWareHouse {
+  count: Int
+  id: ID!
+  name: String!
+  summary: Int
+}
+
+type TopType {
+  data: [String!]!
+}
+
+input UpdateBlogDto {
+  blogId: Float!
+  content: String!
+  title: String
+  typeBlog: String
+}
+
+input UpdateProductDto {
+  buyCount: Int
+  category: String
+  details: ProductDetailInp
+  displayCost: Float
+  name: String
+  originCost: Float
+  productId: Float!
+  rating: Float
+  stockQuantity: Int
+}
+
+input UpdateUserDto {
+  address: String
+  birthday: DateTime
+  email: String!
+  firstName: String!
+  gender: String
+  isDisplay: Boolean
+  lastName: String!
+  password: String!
+  phoneNumber: String
+  role: [String!]!
+  userId: String!
+  username: String!
+}
+
+input UpdateWarehouseDto {
+  productId: Float!
+  stockQuantity: Float!
+}
+
+type UserDetail {
+  address: String
+  birthday: DateTime
+  firstName: String
+  gender: String
+  id: ID!
+  imgDisplay: String
+  lastName: String
+  phoneNumber: String
+}
+
+type UserType {
+  actionLog: [ActionLog!]
+  created_at: DateTime!
+  details: UserDetail
+  email: String!
+  hash: String!
+  id: ID!
+  isDisplay: Boolean!
+  refreshToken: String
+  role: [String!]!
+  secretKey: String!
+  updated_at: DateTime!
+  username: String!
+}
+
+input createOrderDto {
+  customerInfo: CustomerInfoInp!
+  deliveryInfo: DeliveryInfoInp!
+  notes: String
+  orderProducts: [OrderProductInp!]!
+  status: String!
+}
+
+input updateOrderDto {
+  isPaid: Boolean
+  orderId: Float!
+  status: String
+}
