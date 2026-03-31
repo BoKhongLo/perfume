@@ -1,5 +1,5 @@
 name: Build and Release
-run-name: ${{ gitea.actor }} build 🚀
+run-name: ${{ github.actor }} build 🚀
 
 on:
   push:
@@ -8,10 +8,13 @@ on:
 
 jobs:
   release:
-    runs-on: ubuntu-latest
+    runs-on: self-hosted 
+
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout code
+        uses: actions/checkout@v4
 
       - name: Deploy to Container
         run: |
+          # Chạy docker compose trên chính VPS của bạn
           docker compose up -d --build --remove-orphans
