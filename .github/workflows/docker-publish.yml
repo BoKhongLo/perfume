@@ -17,4 +17,4 @@ jobs:
       - name: Deploy to Container
         run: |
           # Chạy docker compose trên chính VPS của bạn
-          docker compose up -d --build --remove-orphans
+          docker compose -f docker-compose.backend.yml up -d --build --remove-orphans
