@@ -74,7 +74,7 @@ const App: React.FC<AppProps> = ({ changeTab }) => {
                 <Button icon={<UploadOutlined />}>Upload Csv</Button>
             </Upload>
             <a
-                href="https://localhost:3434/media/upload/template/TemplateProduct.csv"
+                href="http://160.25.81.4:3434/media/upload/template/TemplateProduct.csv"
                 download
                 className="text-blue-500 underline hover:text-blue-700 transition-colors duration-200"
             >

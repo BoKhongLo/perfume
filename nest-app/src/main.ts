@@ -17,7 +17,8 @@ async function bootstrap() {
     'http://perfumedk.shop',
     'http://103.155.161.250:3000',
     'http://103.155.161.250:3001',
-    'http://103.155.161.250:3002'
+    'http://103.155.161.250:3002',
+    'https://perfumedk.vercel.app'
   ];
   const app = await NestFactory.create(AppModule);
   app.enableCors({

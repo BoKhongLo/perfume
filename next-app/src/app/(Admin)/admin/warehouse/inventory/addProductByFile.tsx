@@ -93,7 +93,7 @@ export default function AddByFile() {
 
                         </Popconfirm>
                         <a
-                            href="https://localhost:3434/media/uploads/TemplateWarehouse.csv"
+                            href="http://160.25.81.4:3434/media/uploads/TemplateWarehouse.csv"
                             download
                             className="btn ml-2"
                             data-theme='light'
