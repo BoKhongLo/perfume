@@ -25,7 +25,7 @@ export class UserDetailType {
   @Field({ nullable: true })
   gender?: string;
 
-  @Field({ nullable: true, defaultValue: "http://160.25.81.4:3434/media/file/user.png" })
+  @Field({ nullable: true, defaultValue: "https://api.bokhonglo.id.vn/media/file/user.png" })
   imgDisplay?: string;
 }
 
